@@ -72,38 +72,14 @@
           <div class="scene-label scene-label-right"><span>BOUNTY</span><b>◈ <span id="bountyValue">+1</span></b></div>
           <div class="lock-reticle" aria-hidden="true"><i></i><i></i><i></i><i></i><span>LOCK</span></div>
           <div class="laser-beam" aria-hidden="true"></div>
+          <canvas class="enemy-canvas" id="enemyCanvas" aria-hidden="true"></canvas>
           <div class="target-wrap" id="targetWrap">
             <div class="target-caption"><span class="target-pip"></span><span id="targetName">TIE SCOUT</span><span class="target-distance">2.4 KM</span></div>
             <button class="fighter-target" id="fighterTarget" type="button" aria-label="Fire at the TIE scout for credits">
-              <svg class="fighter-svg" viewBox="0 0 300 210" role="img" aria-hidden="true">
-                <defs>
-                  <linearGradient id="wingFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9c9d0"/><stop offset=".42" stop-color="#687b85"/><stop offset="1" stop-color="#26343b"/></linearGradient>
-                  <radialGradient id="cockpitFill" cx="35%" cy="30%"><stop offset="0" stop-color="#c6d6dd"/><stop offset=".25" stop-color="#617b88"/><stop offset=".72" stop-color="#263741"/><stop offset="1" stop-color="#101b22"/></radialGradient>
-                  <linearGradient id="wingEdge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f1f5f2"/><stop offset="1" stop-color="#53646b"/></linearGradient>
-                  <filter id="shipShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
-                </defs>
-                <ellipse cx="150" cy="181" rx="99" ry="14" fill="#02060a" opacity=".55" filter="url(#shipShadow)"/>
-                <g class="ship-geometry">
-                  <path d="M39 22 107 34 116 48 110 161 97 177 30 190 44 156 49 54Z" fill="#18252b" stroke="url(#wingEdge)" stroke-width="4"/>
-                  <path d="m47 34 52 9-5 111-50 13 10-28 4-77Z" fill="url(#wingFill)" opacity=".9"/>
-                  <path d="M261 22 193 34 184 48 190 161 203 177 270 190 256 156 251 54Z" fill="#18252b" stroke="url(#wingEdge)" stroke-width="4"/>
-                  <path d="m253 34-52 9 5 111 50 13-10-28-4-77Z" fill="url(#wingFill)" opacity=".9"/>
-                  <path d="m55 54 41-7m-40 11 40-7m-41 12 41-7m-42 12 42-7m-43 12 43-7m-44 12 44-7m-44 12 44-7m-45 12 45-7m-45 12 45-7m-46 12 46-7m-46 12 46-7m-46 12 46-7m-46 12 46-7m-46 12 46-7m-47 12 47-7" stroke="#1c2a30" stroke-width="2" opacity=".8"/>
-                  <path d="m245 54-41-7m40 11-40-7m41 12-41-7m42 12-42-7m43 12-43-7m44 12-44-7m44 12-44-7m45 12-45-7m45 12-45-7m46 12-46-7m46 12-46-7m46 12-46-7m46 12-46-7m46 12-46-7m47 12-47-7" stroke="#1c2a30" stroke-width="2" opacity=".8"/>
-                  <path d="m107 94 35-8h16l35 8-11 38-42 12-42-12Z" fill="#657883" stroke="#d7e1e1" stroke-width="3"/>
-                  <path d="m111 95 39-8 39 8-10 33-29 9-29-9Z" fill="url(#cockpitFill)" stroke="#a8b8ba" stroke-width="2"/>
-                  <ellipse cx="150" cy="109" rx="17" ry="23" fill="url(#cockpitFill)" stroke="#afc4ca" stroke-width="3"/>
-                  <path d="M133 108h34M150 87v45" stroke="#9db2b6" stroke-width="2" opacity=".8"/>
-                  <path d="m116 132-13 22 23-8m58-14 13 22-23-8" fill="#82949a" stroke="#c6d2d3" stroke-width="2"/>
-                  <path d="m68 52-13 100m177-100 13 100" stroke="#e1e8e4" stroke-width="2" opacity=".5"/>
-                  <circle cx="150" cy="151" r="5" fill="#f04e59"/><circle cx="51" cy="170" r="3" fill="#d4dfd9"/><circle cx="249" cy="170" r="3" fill="#d4dfd9"/>
-                  <path d="m127 144 23 14 23-14-6 28-17 10-17-10Z" fill="#303e43" stroke="#92a4a8" stroke-width="2"/>
-                  <circle cx="150" cy="170" r="6" fill="#ffb765" class="engine-glow"/>
-                </g>
-              </svg>
               <span class="target-ring" aria-hidden="true"></span>
             </button>
-            <div class="target-hp"><span id="hpLabel">SHIELDS</span><div class="hp-bars" id="hpBars"><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i></div></div>
+            <div class="target-hp"><span id="hpLabel">HULL</span><div class="hp-bars" id="hpBars"><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i></div></div>
+            <div class="formation-label" id="formationLabel">HOSTILE WING · 3 CONTACTS</div>
           </div>
           <div class="player-ship" aria-hidden="true"><div class="player-wing"></div><div class="player-body"></div><div class="player-engine"></div><span>YOU</span></div>
           <div class="scene-bottom"><span><i class="scan-dot"></i> TARGET ACQUIRED</span><span>CLICK TO FIRE <kbd>SPACE</kbd></span></div>
