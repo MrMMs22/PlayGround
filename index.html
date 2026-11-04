@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b12">
+  <meta name="description" content="A space-opera idle clicker. Take the controls, build your squadron, and hunt bounties across the Outer Rim.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070b12'/%3E%3Cpath d='M32 8 56 52H8z' fill='none' stroke='%23f6b85d' stroke-width='4'/%3E%3Ccircle cx='32' cy='37' r='5' fill='%23f6b85d'/%3E%3C/svg%3E">
+  <title>Outer Rim — Starfighter Clicker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Outer Rim home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="brand-name">OUTER<span>RIM</span><small>BOUNTY RUN</small></span>
+      </a>
+      <div class="top-center"><span class="live-dot"></span> FRONTIER SECTOR <b>/</b> <span id="sectorName">KESSA REACH</span><span class="top-coords">7 : 04 : 19</span></div>
+      <div class="top-right">
+        <div class="top-currency"><span class="credit-icon">◈</span><span id="headerCredits">0</span><small>CR</small></div>
+        <button id="soundToggle" class="icon-button" type="button" aria-label="Toggle sound" title="Toggle sound">♪</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="left-column">
+        <section class="panel pilot-panel">
+          <div class="panel-kicker"><span>FLIGHT RECORD</span><span class="record-dot"></span></div>
+          <div class="pilot-profile">
+            <div class="pilot-avatar"><span>✦</span><b>ROGUE</b></div>
+            <div><div class="pilot-name">Ace Recruit</div><div class="pilot-rank" id="rankName">FLIGHT CADET</div></div>
+          </div>
+          <div class="rank-progress"><div class="rank-progress-meta"><span>NEXT RANK</span><span id="rankProgressText">0 / 100 XP</span></div><div class="progress-track"><i id="rankProgressBar"></i></div></div>
+          <div class="stat-list">
+            <div><span>Targets disabled</span><strong id="statHits">0</strong></div>
+            <div><span>Best streak</span><strong id="statBestStreak">0<span class="stat-unit">×</span></strong></div>
+            <div><span>Flight time</span><strong id="statTime">00:00</strong></div>
+          </div>
+        </section>
+
+        <section class="panel contract-panel">
+          <div class="panel-heading"><div><span class="section-overline">ACTIVE CONTRACT</span><h2>Wanted: <span id="contractTarget">TIE scout</span></h2></div><span class="contract-stamp">LIVE</span></div>
+          <p>Land <b id="contractGoal">10</b> hits on the target to claim a supply drop.</p>
+          <div class="contract-progress"><div class="progress-track"><i id="contractProgressBar"></i></div><span id="contractProgressText">0 / 10</span></div>
+          <div class="contract-reward"><span>COMPLETION BONUS</span><strong>◈ <span id="contractReward">25</span> CR</strong></div>
+        </section>
+
+        <section class="panel system-panel">
+          <div class="panel-kicker"><span>SHIP SYSTEMS</span><span class="system-status">ALL GREEN</span></div>
+          <div class="system-line"><span class="system-icon">⌁</span><span>Hull integrity</span><b>100%</b></div>
+          <div class="system-meter"><i></i></div>
+          <div class="system-line"><span class="system-icon">ϟ</span><span>Blaster charge</span><b id="blasterStatus">READY</b></div>
+          <div class="system-meter amber"><i id="blasterMeter"></i></div>
+          <div class="system-line"><span class="system-icon">◎</span><span>Hyperdrive</span><b>STANDBY</b></div>
+        </section>
+      </aside>
+
+      <section class="battle-panel panel">
+        <div class="battle-topline"><div><span class="section-overline">LIVE INTERCEPT</span><h1>THE HUNT IS ON<span class="heading-period">.</span></h1></div><div class="threat-tag"><span class="threat-pulse"></span><span>HOSTILE CONTACT</span><b id="threatLevel">LVL 01</b></div></div>
+        <div class="scene" id="scene" aria-label="Space battle. Click the enemy starfighter to fire">
+          <div class="scene-grid"></div>
+          <div class="star-layer" id="starLayer" aria-hidden="true"></div>
+          <div class="nebula nebula-one"></div><div class="nebula nebula-two"></div>
+          <div class="planet-orbit"><div class="planet"><span class="planet-crater crater-one"></span><span class="planet-crater crater-two"></span><span class="planet-crater crater-three"></span><span class="planet-rim"></span></div></div>
+          <div class="moon moon-one"></div><div class="moon moon-two"></div>
+          <div class="orbital-path orbital-path-one"></div><div class="orbital-path orbital-path-two"></div>
+          <div class="scene-label scene-label-left"><i></i><span>KESTREL SYSTEM</span><small>OUTER RIM · 03:17</small></div>
+          <div class="scene-label scene-label-right"><span>BOUNTY</span><b>◈ <span id="bountyValue">+1</span></b></div>
+          <div class="lock-reticle" aria-hidden="true"><i></i><i></i><i></i><i></i><span>LOCK</span></div>
+          <div class="laser-beam" aria-hidden="true"></div>
+          <div class="target-wrap" id="targetWrap">
+            <div class="target-caption"><span class="target-pip"></span><span id="targetName">TIE SCOUT</span><span class="target-distance">2.4 KM</span></div>
+            <button class="fighter-target" id="fighterTarget" type="button" aria-label="Fire at the TIE scout for credits">
+              <svg class="fighter-svg" viewBox="0 0 300 210" role="img" aria-hidden="true">
+                <defs>
+                  <linearGradient id="wingFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9c9d0"/><stop offset=".42" stop-color="#687b85"/><stop offset="1" stop-color="#26343b"/></linearGradient>
+                  <radialGradient id="cockpitFill" cx="35%" cy="30%"><stop offset="0" stop-color="#c6d6dd"/><stop offset=".25" stop-color="#617b88"/><stop offset=".72" stop-color="#263741"/><stop offset="1" stop-color="#101b22"/></radialGradient>
+                  <linearGradient id="wingEdge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f1f5f2"/><stop offset="1" stop-color="#53646b"/></linearGradient>
+                  <filter id="shipShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+                </defs>
+                <ellipse cx="150" cy="181" rx="99" ry="14" fill="#02060a" opacity=".55" filter="url(#shipShadow)"/>
+                <g class="ship-geometry">
+                  <path d="M39 22 107 34 116 48 110 161 97 177 30 190 44 156 49 54Z" fill="#18252b" stroke="url(#wingEdge)" stroke-width="4"/>
+                  <path d="m47 34 52 9-5 111-50 13 10-28 4-77Z" fill="url(#wingFill)" opacity=".9"/>
+                  <path d="M261 22 193 34 184 48 190 161 203 177 270 190 256 156 251 54Z" fill="#18252b" stroke="url(#wingEdge)" stroke-width="4"/>
+                  <path d="m253 34-52 9 5 111 50 13-10-28-4-77Z" fill="url(#wingFill)" opacity=".9"/>
+                  <path d="m55 54 41-7m-40 11 40-7m-41 12 41-7m-42 12 42-7m-43 12 43-7m-44 12 44-7m-44 12 44-7m-45 12 45-7m-45 12 45-7m-46 12 46-7m-46 12 46-7m-46 12 46-7m-46 12 46-7m-46 12 46-7m-47 12 47-7" stroke="#1c2a30" stroke-width="2" opacity=".8"/>
+                  <path d="m245 54-41-7m40 11-40-7m41 12-41-7m42 12-42-7m43 12-43-7m44 12-44-7m44 12-44-7m45 12-45-7m45 12-45-7m46 12-46-7m46 12-46-7m46 12-46-7m46 12-46-7m46 12-46-7m47 12-47-7" stroke="#1c2a30" stroke-width="2" opacity=".8"/>
+                  <path d="m107 94 35-8h16l35 8-11 38-42 12-42-12Z" fill="#657883" stroke="#d7e1e1" stroke-width="3"/>
+                  <path d="m111 95 39-8 39 8-10 33-29 9-29-9Z" fill="url(#cockpitFill)" stroke="#a8b8ba" stroke-width="2"/>
+                  <ellipse cx="150" cy="109" rx="17" ry="23" fill="url(#cockpitFill)" stroke="#afc4ca" stroke-width="3"/>
+                  <path d="M133 108h34M150 87v45" stroke="#9db2b6" stroke-width="2" opacity=".8"/>
+                  <path d="m116 132-13 22 23-8m58-14 13 22-23-8" fill="#82949a" stroke="#c6d2d3" stroke-width="2"/>
+                  <path d="m68 52-13 100m177-100 13 100" stroke="#e1e8e4" stroke-width="2" opacity=".5"/>
+                  <circle cx="150" cy="151" r="5" fill="#f04e59"/><circle cx="51" cy="170" r="3" fill="#d4dfd9"/><circle cx="249" cy="170" r="3" fill="#d4dfd9"/>
+                  <path d="m127 144 23 14 23-14-6 28-17 10-17-10Z" fill="#303e43" stroke="#92a4a8" stroke-width="2"/>
+                  <circle cx="150" cy="170" r="6" fill="#ffb765" class="engine-glow"/>
+                </g>
+              </svg>
+              <span class="target-ring" aria-hidden="true"></span>
+            </button>
+            <div class="target-hp"><span id="hpLabel">SHIELDS</span><div class="hp-bars" id="hpBars"><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i></div></div>
+          </div>
+          <div class="player-ship" aria-hidden="true"><div class="player-wing"></div><div class="player-body"></div><div class="player-engine"></div><span>YOU</span></div>
+          <div class="scene-bottom"><span><i class="scan-dot"></i> TARGET ACQUIRED</span><span>CLICK TO FIRE <kbd>SPACE</kbd></span></div>
+          <div class="flash-overlay" id="flashOverlay"></div>
+        </div>
+        <div class="battle-controls">
+          <div class="combo-readout"><span class="combo-icon">ϟ</span><div><strong id="comboValue">x1</strong><small>COMBO</small></div><div class="combo-meter"><i id="comboMeter"></i></div></div>
+          <div class="click-instruction">Every hit earns <b>◈ <span id="clickValue">1</span></b><span>Keep firing to build your streak</span></div>
+          <button class="fire-button" id="fireButton" type="button"><span class="fire-icon">ϟ</span><span>FIRE BLASTERS</span><kbd>SPACE</kbd></button>
+        </div>
+      </section>
+
+      <aside class="right-column">
+        <section class="panel credits-panel">
+          <div class="panel-kicker"><span>FLIGHT FUNDS</span><span class="credit-live"><i></i> LIVE</span></div>
+          <div class="credit-total" id="creditTotal">0</div>
+          <div class="credit-caption"><span>GALACTIC CREDITS</span><span>◈</span></div>
+          <div class="income-line"><span>PASSIVE INCOME</span><strong>+<span id="incomeRate">0</span> <small>/ SEC</small></strong></div>
+        </section>
+        <section class="shop-section">
+          <div class="shop-heading"><div><span class="section-overline">FLIGHT DECK</span><h2>UPGRADES</h2></div><button id="buyMode" class="buy-mode" type="button" aria-label="Change buy quantity">BUY <b>x1</b></button></div>
+          <div class="upgrade-list" id="upgradeList"></div>
+          <div class="shop-foot"><span class="tiny-shield">⬡</span><span>UPGRADES PERSIST BETWEEN VISITS</span></div>
+        </section>
+        <div class="panel intel-panel"><span class="intel-icon">✧</span><div><b>FIELD INTEL</b><p id="intelText">A steady hand beats a fast trigger. Keep your combo alive for bigger payouts.</p></div></div>
+      </aside>
+    </main>
+
+    <footer class="footer"><span>OUTER RIM BOUNTY RUN <i>·</i> FLIGHT SIMULATOR 01</span><span>PROGRESS SAVES AUTOMATICALLY <i>·</i> <button id="resetButton" type="button">RESET FLIGHT</button></span></footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="offline-modal" id="offlineModal" hidden><div class="offline-card"><span class="offline-star">✦</span><span class="section-overline">WHILE YOU WERE AWAY</span><h2>Welcome back, pilot.</h2><p>Your droids kept the operation running. You collected</p><strong class="offline-amount">◈ <span id="offlineAmount">0</span> CR</strong><button id="collectOffline" type="button">COLLECT BOUNTY</button></div></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
