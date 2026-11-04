@@ -78,12 +78,13 @@
             <button class="fighter-target" id="fighterTarget" type="button" aria-label="Fire at the TIE scout for credits">
               <span class="target-ring" aria-hidden="true"></span>
             </button>
-            <div class="target-hp"><span id="hpLabel">HULL</span><div class="hp-bars" id="hpBars"><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i></div></div>
+            <div class="target-hp"><span id="hpLabel">HULL</span><strong id="hpValue">100%</strong><div class="hp-bars" id="hpBars"><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i></div></div>
             <div class="formation-label" id="formationLabel">HOSTILE WING · 3 CONTACTS</div>
           </div>
           <div class="player-ship" aria-hidden="true"><div class="player-wing"></div><div class="player-body"></div><div class="player-engine"></div><span>YOU</span></div>
           <div class="scene-bottom"><span><i class="scan-dot"></i> TARGET ACQUIRED</span><span>CLICK TO FIRE <kbd>SPACE</kbd></span></div>
           <div class="flash-overlay" id="flashOverlay"></div>
+          <div class="battle-celebration" id="battleCelebration" aria-live="assertive" aria-atomic="true"></div>
         </div>
         <div class="battle-controls">
           <div class="combo-readout"><span class="combo-icon">ϟ</span><div><strong id="comboValue">x1</strong><small>COMBO</small></div><div class="combo-meter"><i id="comboMeter"></i></div></div>
